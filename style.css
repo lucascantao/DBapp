@@ -1,0 +1,68 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ddd;
+}
+
+header {
+    background-color: #333;
+    color: white;
+
+    padding: 20px;
+
+}
+
+main {
+    display: flex;
+}
+
+.left-panel {
+    /* display: flex; */
+    margin: 24px;
+}
+
+.input-data {
+    display: flex;
+    margin: 12px 0;
+    
+}
+
+.query-DB-panel {
+    border: 1px solid #333;
+    width: 500px;
+    margin: 24px;
+}
+
+input, button {
+    height: 24px;
+    margin-right: 12px;
+}
+
+button {
+    width: 80px;
+    cursor: pointer;
+}
+
+#execution-log {
+    background-color: #111;
+    color: greenyellow;
+    
+    resize: none;
+    display: flex;
+}
+
+.execution-log-panel {
+    margin-top: 24px;
+}
+
+.execution-log-panel button {
+    width: 120px;
+    margin-top: 10px;
+    
+}
+
+

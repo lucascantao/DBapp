@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #ddd;
+    background-color: #777;
 }
 
 header {
@@ -17,34 +17,56 @@ header {
 }
 
 main {
-    display: flex;
+       
+    /* border: 1px solid #333; */
+    height: 400px;
+    width: 700px;
+    background-color: #aaa;
+    margin: 100px auto;
+    padding: 24px;
 }
 
 .left-panel {
-    /* display: flex; */
-    margin: 24px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .input-data {
     display: flex;
-    margin: 12px 0;
-    
+    flex-direction: column;
 }
+
 
 .query-DB-panel {
     border: 1px solid #333;
-    width: 500px;
-    margin: 24px;
+    height: 150px;
+    width: 100%;
+    margin: 24px 0;
 }
 
 input, button {
     height: 24px;
-    margin-right: 12px;
+    margin: 3px 6px;
 }
 
 button {
     width: 80px;
+    margin: 6px;
     cursor: pointer;
+    /* border: none; */
+    color: white;
+}
+
+.btn-clear {
+    background-color: red;
+}
+
+.btn-show {
+    background-color: orange;
+}
+
+.btn-add {
+    background-color: green;
 }
 
 #execution-log {
@@ -53,15 +75,17 @@ button {
     
     resize: none;
     display: flex;
+
+    font-size: 11px;
+    font-family: 'Roboto Mono', monospace;
+    padding: 5px;
 }
 
-.execution-log-panel {
-    margin-top: 24px;
-}
 
-.execution-log-panel button {
+.clear-terminal {
     width: 120px;
-    margin-top: 10px;
+    margin: 12px 0 0;
+    color: black;
     
 }
 

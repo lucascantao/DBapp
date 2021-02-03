@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DB App</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
     <header>
@@ -13,30 +16,30 @@
 
     <main>
 
-    <div class="left-panel">
-        <div class="input-data">
-            <input class='input-name' type="text" name="name" placeholder="name">
-            <input class='input-email' type="text" name="email" placeholder="email">
+        <div class="left-panel">
+            <div class="control-panel">
+                <div class="input-data">
+                    <input class='input-name' type="text" name="name" placeholder="name">
+                    <input class='input-email' type="text" name="email" placeholder="email">
+                </div>
+            
+                <div class="buttons-panel">
+                    <button class='btn-clear'>Clear DB</button>
+                    <button class='btn-show'>Query DB</button>
+                    <button class='btn-add'>Load DB</button>
+                </div>
+            </div>
+            
+            <div class="execution-log-panel">
+                <textarea name="execution-log" id="execution-log" cols="45" rows="8" ></textarea>
+                <button class='clear-terminal'>Clear Terminal</button>
+            </div>
+
         </div>
-    
-        <div class="control-panel">
-            <button class='btn-clear'>Clear DB</button>
-            <button class='btn-show'>Query DB</button>
-            <button class='btn-add'>Load DB</button>
+
+        <div class="query-DB-panel">
+
         </div>
-        
-        <div class="execution-log-panel">
-            <textarea name="execution-log" id="execution-log" cols="75" rows="10" ></textarea>
-            <button class='clear-terminal'>Clear Terminal</button>
-        </div>
-       
-
-
-    </div>
-
-    <div class="query-DB-panel">
-
-    </div>
     
 
     </main>

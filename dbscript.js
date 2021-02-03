@@ -9,7 +9,7 @@ clearBtn.addEventListener('click', () => {
   executionPanel.value = ''
 })
 
-const terminalPrefix = '--> $ '
+const terminalPrefix = '$ '
 
 
 function notify(str) {
@@ -20,6 +20,7 @@ function notify(str) {
 class Customer {
     constructor(dbName) {
       this.dbName = dbName;
+      this.dbVer = 1
       if (!window.indexedDB) {
         window.alert("Your browser doesn't support a stable version of IndexedDB. \
           Such and such feature will not be available.");
@@ -27,16 +28,17 @@ class Customer {
     }
   
     removeAllRows = () => {
-      const request = window.indexedDB.open(this.dbName, 1);
+      const request = window.indexedDB.open(this.dbName, this.dbVer);
   
       request.onerror = (event) => {
-        notify('removeAllRows - Database error: ', event.target.error.code,
-          " - ", event.target.error.message);
+        notify('removeAllRows - Database error: ' + event.target.error.code +
+          " - " + event.target.error.message);
       };
   
       request.onsuccess = (event) => {
         notify('Deleting all customers...');
-        const db = event.target.result;
+        const db = request.result;
+        console.log(db)
         const txn = db.transaction('customers', 'readwrite');
         txn.onerror = (event) => {
           notify('removeAllRows - Txn error: ', event.target.error.code,
@@ -56,11 +58,16 @@ class Customer {
     }
   
     initialLoad = (customerData) => {
-      const request = window.indexedDB.open(this.dbName, 1);
+      const request = window.indexedDB.open(this.dbName, this.dbVer);
       
       request.onsuccess = (e) => {
         let db = request.result;
         let txn = db.transaction('customers', 'readwrite');
+
+        txn.onerror = (e) => {
+          console.log(e.target.error.message)
+        }
+
         let objectStore = txn.objectStore('customers')
   
         // Populate the database with the initial set of rows
@@ -74,8 +81,8 @@ class Customer {
       }
 
       request.onerror = (event) => {
-        notify('initialLoad - Database error: ', event.target.error.code,
-          " - ", event.target.error.message);
+        notify('initialLoad - Database error: ' + event.target.error.code +
+          " - " + event.target.error.message);
       };
   
       request.onupgradeneeded = (event) => {
@@ -83,8 +90,8 @@ class Customer {
         const db = request.result;
         const objectStore = db.createObjectStore('customers', { keyPath: 'userid' });
         objectStore.onerror = (event) => {
-          notify('initialLoad - objectStore error: ', event.target.error.code,
-            " - ", event.target.error.message);
+          notify('initialLoad - objectStore error: ' + event.target.error.code +
+            " - " + event.target.error.message);
         };
   
         // Create an index to search customers by name and email
@@ -101,7 +108,7 @@ class Customer {
     }
 
     queryData = () => {
-      const request = window.indexedDB.open(this.dbName, 1)
+      const request = window.indexedDB.open(this.dbName, this.dbVer)
 
       request.onerror = (e) => {
         alert('error on DB open()')
@@ -109,6 +116,7 @@ class Customer {
 
       request.onsuccess = (e) => {
         let db = request.result;
+        console.log(db)
         let txn = db.transaction('customers', 'readwrite');
         let store = txn.objectStore('customers')
 
@@ -120,6 +128,8 @@ class Customer {
           })
           notify('---------------------------')
         }
+
+        db.close()
       }
     }
   }
@@ -158,7 +168,7 @@ class Customer {
   }
 
   const queryDB = () => {
-    notify('\n--> $ Quering all Data:')
+    notify('Quering all Data:')
     let customer = new Customer(DBNAME)
     customer.queryData()
     

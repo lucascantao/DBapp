@@ -1,6 +1,9 @@
 const add = document.querySelector('.btn-add')
 const clear = document.querySelector('.btn-clear')
 const show = document.querySelector('.btn-show')
+const initDB = document.querySelector('#btn-createDB')
+const dropStoreBtn = document.querySelector('#btn-dropDB')
+
 const executionPanel = document.querySelector('#execution-log')
 
 const clearBtn = document.querySelector('.clear-terminal')
@@ -24,7 +27,52 @@ class Customer {
       if (!window.indexedDB) {
         window.alert("Your browser doesn't support a stable version of IndexedDB. \
           Such and such feature will not be available.");
+      }else {
+        // this.createStore()
       }
+    }
+
+    deleteDatabase = () => {
+     let request = window.indexedDB.deleteDatabase(this.dbName)
+
+     request.onsuccess = (e) => {
+       notify('Deleting database...')
+     }
+
+     request.onerror = (e) => {
+        notify('Error on deleting database')
+     }
+      
+    }
+    
+
+    createStore = () => {
+      let request = window.indexedDB.open(this.dbName, this.dbVer)
+        
+        request.onerror = (e) => {
+          notify('Error opening the DB: ' + e.target.error.message)
+        }
+
+        request.onsuccess = (e) => {
+          notify('DB connection open: ' + e.target.result.name)
+        }
+
+        request.onupgradeneeded = () => {
+          notify('updating Database...')
+          
+          const db = request.result;
+          const store = db.createObjectStore('customers', {autoIncrement: true})
+
+          store.onerror = (e) => {
+            notify('error on upadating database...')
+          }
+
+          store.createIndex('name', 'name', { unique: false })
+          store.createIndex('email', 'email', { unique: true })
+
+          db.close()
+          notify('database updated')
+        }
     }
   
     removeAllRows = () => {
@@ -38,18 +86,21 @@ class Customer {
       request.onsuccess = (event) => {
         notify('Deleting all customers...');
         const db = request.result;
-        console.log(db)
+        // console.log(db)
         const txn = db.transaction('customers', 'readwrite');
         txn.onerror = (event) => {
           notify('removeAllRows - Txn error: ', event.target.error.code,
             " - ", event.target.error.message);
         };
+
         txn.oncomplete = (event) => {
           notify('All rows removed!');
         };
         const objectStore = txn.objectStore('customers');
+        console.log(objectStore)
         const getAllKeysRequest = objectStore.getAllKeys();
         getAllKeysRequest.onsuccess = (event) => {
+          console.log(getAllKeysRequest.result)
           getAllKeysRequest.result.forEach(key => {
             objectStore.delete(key);
           });
@@ -83,26 +134,6 @@ class Customer {
       request.onerror = (event) => {
         notify('initialLoad - Database error: ' + event.target.error.code +
           " - " + event.target.error.message);
-      };
-  
-      request.onupgradeneeded = (event) => {
-        notify('Populating customers...');
-        const db = request.result;
-        const objectStore = db.createObjectStore('customers', { keyPath: 'userid' });
-        objectStore.onerror = (event) => {
-          notify('initialLoad - objectStore error: ' + event.target.error.code +
-            " - " + event.target.error.message);
-        };
-  
-        // Create an index to search customers by name and email
-        objectStore.createIndex('name', 'name', { unique: false });
-        objectStore.createIndex('email', 'email', { unique: true });
-  
-        // Populate the database with the initial set of rows
-        customerData.forEach(function(customer) {
-          objectStore.put(customer);
-        });
-        db.close();
       };
       
     }
@@ -173,7 +204,21 @@ class Customer {
     customer.queryData()
     
   }
+
+  const OpenDB = () => {
+    notify('creating DB')
+    let customer = new Customer(DBNAME)
+    customer.createStore()
+    
+  }
+
+  const dropDB = () => {
+    let customer = new Customer(DBNAME)
+    customer.deleteDatabase()
+  }
   
 add.addEventListener('click', loadDB)
 clear.addEventListener('click', clearDB)
 show.addEventListener('click', queryDB)
+initDB.addEventListener('click', OpenDB)
+dropStoreBtn.addEventListener('click', dropDB)

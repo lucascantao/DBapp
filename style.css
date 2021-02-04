@@ -44,29 +44,60 @@ main {
     margin: 24px 0;
 }
 
-input, button {
-    height: 24px;
+input {
+    height: 30px;
+    border: 1px solid #999;
     margin: 3px 6px;
+    letter-spacing: 1px;
+    padding: 8px;
+    box-shadow: 3px 3px #999;
 }
 
-button {
+.btn {
     width: 80px;
+    height: 28px;
     margin: 6px;
     cursor: pointer;
-    /* border: none; */
+    border: none;
+    border-radius: 3px;
+    box-shadow: 3px 3px #999;
+    color: black;
+}
+
+.btn:hover {
+    background-color: white;
+}
+
+.btn-DB {
+    width: 120px;
+    background-color: #ddd;
+}
+
+.btn.btn-clear {
+    background-color: red;
     color: white;
 }
 
-.btn-clear {
-    background-color: red;
+.btn.btn-clear:hover {
+    background-color: orangered;
 }
 
-.btn-show {
+.btn.btn-show {
     background-color: orange;
+    color: white;
 }
 
-.btn-add {
-    background-color: green;
+.btn.btn-show:hover {
+    background-color: rgb(255, 187, 59)
+}
+
+.btn.btn-add {
+    background-color: rgb(0, 172, 0);
+    color: white;
+}
+
+.btn.btn-add:hover {
+    background-color: rgb(0, 243, 0);
 }
 
 #execution-log {

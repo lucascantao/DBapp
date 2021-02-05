@@ -62,43 +62,13 @@ input {
     border: none;
     border-radius: 3px;
     box-shadow: 3px 3px #999;
-    color: black;
+    color: white;
+    background-color: rgb(41, 126, 255);
 }
 
 .btn:hover {
     background-color: white;
-}
-
-.btn-DB {
-    width: 120px;
-    background-color: #ddd;
-}
-
-.btn.btn-clear {
-    background-color: red;
-    color: white;
-}
-
-.btn.btn-clear:hover {
-    background-color: orangered;
-}
-
-.btn.btn-show {
-    background-color: orange;
-    color: white;
-}
-
-.btn.btn-show:hover {
-    background-color: rgb(255, 187, 59)
-}
-
-.btn.btn-add {
-    background-color: rgb(0, 172, 0);
-    color: white;
-}
-
-.btn.btn-add:hover {
-    background-color: rgb(0, 243, 0);
+    color: black;
 }
 
 #execution-log {
@@ -117,7 +87,7 @@ input {
 .clear-terminal {
     width: 120px;
     margin: 12px 0 0;
-    color: black;
+    /* color: black; */
     
 }
 

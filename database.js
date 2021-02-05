@@ -53,7 +53,7 @@ class Customer {
                 " - " + event.target.error.message);
         };
 
-        //New Handler Added
+        // onsuccess event handler added
         request.onsuccess = (e) => {
             notify('Populating customers...')
             const db = request.result;
@@ -124,7 +124,6 @@ class Customer {
 
             const db = request.result
             const store = db.createObjectStore('customers', { keyPath: 'userid' })
-            // const txn = db.transaction('customers', 'readwrite')
 
             store.onerror = (e) => {
                 notify('Query - ObjectStore error: ' + e.target.error.message)
@@ -177,6 +176,17 @@ function notify(str) {
     logPanel.value += '$>>> ' + str + '\n'
 }
 
+function List(item) {
+    return `<li> ${item} </li>`
+}
+
+function queryDatabase(items) {
+    const DBpanel = document.querySelector('.DB-query-list')
+    items.forEach(item => {
+        DBpanel.innerHTML += List(item)
+    })
+}
+
 const clear = document.querySelector('.btn-clear')
 const load = document.querySelector('.btn-load')
 const query = document.querySelector('.btn-query')
@@ -189,3 +199,6 @@ clearTerminal.addEventListener('click', () => {
     const logPanel = document.querySelector('#execution-log')
     logPanel.value = '$>>>'
 })
+
+
+queryDatabase(['item 1', 'item 2', 'item 3'])

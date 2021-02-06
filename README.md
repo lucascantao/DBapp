@@ -144,7 +144,7 @@ const loadDB = () => {
 
 -   [x] User can see a web page containing a control panel containing three
 buttons - 'Load DB', 'Query DB', and 'Clear DB'.
--   [ ] User can see a notification panel where status messages will be posted.
+-   [x] User can see a notification panel where status messages will be posted.
 -   [x] User can see a scrollable log panel where execution details describing 
 the apps operation and interface with the Customer instance will be posted. 
 -   [x] User can see a running history of notification panel messages in the log
@@ -154,19 +154,19 @@ data will be displayed.
 -   [x] User can click the 'Load DB' button to populate the database with data.
 The 'Load DB' button in your UI should be hooked to the `loadDB` event handler
 that's provided. 
--   [ ] User can see a message displayed in the notification panel when the 
+-   [x] User can see a message displayed in the notification panel when the 
 data load operation starts and ends.
 -   [x] User can click the 'Query DB' button to list all customers in the query 
 results area. The 'Query DB' button in your UI should be hooked to a `queryDB`
 event handler you will add to the program.
--   [ ] User can see a message in the notification panel when the query starts
+-   [x] User can see a message in the notification panel when the query starts
 and ends.
 -   [ ] User can see a message in the query results area if there are no rows
 to display.
 -   [x] User can click on the 'Clear DB' button to remove all rows from the 
 database. The 'Clear DB' button in your UI should be hooked to the `clearDB` 
 event handler that's provided.
--   [ ] User can see a message in the notification panel when the clear
+-   [x] User can see a message in the notification panel when the clear
 operation starts and ends.
 
 ## Bonus features

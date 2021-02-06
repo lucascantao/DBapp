@@ -71,7 +71,7 @@ input {
     color: black;
 }
 
-#execution-log {
+#log-panel {
     background-color: #111;
     color: greenyellow;
     
@@ -91,4 +91,29 @@ input {
     
 }
 
+.notification-panel {
+    background-color: #ddd;
+    border: 1px solid #9f9f9f;
+    height: 56px;
+    margin: 12px 6px;
+    box-shadow: 3px 3px #999;
 
+    display: flex;
+    align-items: center;
+
+    transition: all .1s;
+}
+
+.notification-panel:hover {
+    background-color: #fff;
+    cursor: pointer;
+    transition: all .1s;
+}
+
+.notification-text {
+    margin-left: 12px;
+}
+
+.hide {
+    display: none;
+}

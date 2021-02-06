@@ -15,7 +15,7 @@ class Customer {
         const request = indexedDB.open(this.dbName, 1);
 
         request.onerror = (event) => {
-            notify('removeAllRows - Database error: ' + event.target.error.code +
+            log('removeAllRows - Database error: ' + event.target.error.code +
                 " - " + event.target.error.message);
         };
 
@@ -24,7 +24,7 @@ class Customer {
             const db = event.target.result;
             const txn = db.transaction('customers', 'readwrite');
             txn.onerror = (event) => {
-                notify('removeAllRows - Txn error: ' + event.target.error.code +
+                log('removeAllRows - Txn error: ' + event.target.error.code +
                     " - " + event.target.error.message);
             };
             txn.oncomplete = (event) => {
@@ -49,7 +49,7 @@ class Customer {
         const request = indexedDB.open(this.dbName, 1);
 
         request.onerror = (event) => {
-            notify('initialLoad - Database error: ' + event.target.error.code +
+            log('initialLoad - Database error: ' + event.target.error.code +
                 " - " + event.target.error.message);
         };
 
@@ -64,15 +64,17 @@ class Customer {
                 store.put(customer)
             })
 
+            notify('Load operation end');
+
             db.close()
         }
 
         request.onupgradeneeded = (event) => {
-            notify('Populating customers...');
+            notify('Populating customers...')
             const db = request.result;
             const objectStore = db.createObjectStore('customers', { keyPath: 'userid' });
             objectStore.onerror = (event) => {
-                notify('initialLoad - objectStore error: ' + event.target.error.code +
+                log('initialLoad - objectStore error: ' + event.target.error.code +
                     " - " + event.target.error.message);
             };
 
@@ -84,6 +86,8 @@ class Customer {
             customerData.forEach(function (customer) {
                 objectStore.put(customer);
             });
+
+            notify('Load operation end');
             db.close();
         };
     }
@@ -93,7 +97,7 @@ class Customer {
         const request = window.indexedDB.open(this.dbName, 1)
 
         request.onerror = (e) => {
-            notify('Query - Database error: ' + e.target.error.code)
+            log('Query - Database error: ' + e.target.error.code)
         }
         request.onsuccess = (e) => {
             notify('Querying retrived data...')
@@ -111,8 +115,9 @@ class Customer {
                     notify('No data retrived')
                 }else {
                     e.target.result.forEach(key => {
-                        notify(' { name: ' + key.name + ' email: ' + key.email + ' } ')
+                        log(' { name: ' + key.name + ' email: ' + key.email + ' } ')
                     })
+                    notify('Query operation End')
                 }
 
             }
@@ -126,7 +131,7 @@ class Customer {
             const store = db.createObjectStore('customers', { keyPath: 'userid' })
 
             store.onerror = (e) => {
-                notify('Query - ObjectStore error: ' + e.target.error.message)
+                log('Query - ObjectStore error: ' + e.target.error.message)
             }
 
             store.createIndex('name', 'name', { unique: false })
@@ -145,7 +150,7 @@ const DBNAME = 'customer_db';
  * Clear all customer data from the database
  */
 const clearDB = () => {
-    notify('Delete all rows from the Customers database');
+    log('Delete all rows from the Customers database');
     let customer = new Customer(DBNAME);
     customer.removeAllRows();
 }
@@ -154,7 +159,7 @@ const clearDB = () => {
  * Add customer data to the database
  */
 const loadDB = () => {
-    notify('Load the Customers database');
+    log('Load the Customers database');
 
     // Customers to add to initially populate the database with
     const customerData = [
@@ -166,14 +171,14 @@ const loadDB = () => {
 }
 
 const queryDB = () => {
-    notify('Query data')
+    log('Query data')
     let customer = new Customer(DBNAME)
     customer.queryAllData()
 }
 
-function notify(str) {
-    const logPanel = document.querySelector('#execution-log')
-    logPanel.value += '$>>> ' + str + '\n'
+function log(str) {
+    const logPanel = document.querySelector('#log-panel')
+    logPanel.value += '# ' + str + '\n'
 }
 
 function List(item) {
@@ -187,6 +192,16 @@ function queryDatabase(items) {
     })
 }
 
+const notPanel = document.querySelector('.notification-panel')
+
+function notify(str) {
+    notPanel.classList.remove('hide')
+    log(str)
+    notPanel.innerHTML = `<p class="notification-text"> ${str} </p>`
+}
+
+
+
 const clear = document.querySelector('.btn-clear')
 const load = document.querySelector('.btn-load')
 const query = document.querySelector('.btn-query')
@@ -195,10 +210,17 @@ const clearTerminal = document.querySelector('.clear-terminal')
 clear.addEventListener('click', clearDB)
 load.addEventListener('click', loadDB)
 query.addEventListener('click', queryDB)
-clearTerminal.addEventListener('click', () => {
-    const logPanel = document.querySelector('#execution-log')
-    logPanel.value = '$>>>'
+
+notPanel.addEventListener('click', () => {
+    notPanel.classList.add('hide')
 })
+
+clearTerminal.addEventListener('click', () => {
+    const logPanel = document.querySelector('#log-panel')
+    logPanel.value = '#\n'
+})
+
+
 
 
 queryDatabase(['item 1', 'item 2', 'item 3'])

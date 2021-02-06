@@ -1,3 +1,7 @@
+Project for [App Ideas](https://github.com/florinpop17/app-ideas/blob/master/Projects/1-Beginner/First-DB-App.md)
+
+**Demo:** [First DB App](https://lucascantao.github.io/DBapp/)
+
 # Your First DB App
 
 **Tier:** 1-Beginner
@@ -187,14 +191,3 @@ for the year.
     - In general, what criteria might you use to determine if IndexedDB is right
     for your app. (Hint: 100% yes or no is not a valid answer).
 
-
-## Useful links and resources
-
-- [IndexedDB Concepts (MDN)](http://tinyw.in/7TIr)
-- [Using IndexedDB (MDN)](http://tinyw.in/w6k0)
-- [IndexedDB API (MDN)](http://tinyw.in/GqnF)
-- [IndexedDB Browser Support](https://caniuse.com/#feat=indexeddb)
-
-## Example projects
-
-- N/a

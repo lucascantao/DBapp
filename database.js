@@ -60,6 +60,12 @@ class Customer {
             const txn = db.transaction('customers', 'readwrite')
             const store = txn.objectStore('customers')
 
+            const keys = store.getAll()
+
+            keys.onsuccess = (e) => {
+                updateDatabasePanel(e.target.result)
+            }
+
             customerData.forEach(customer => {
                 store.put(customer)
             })
@@ -179,28 +185,39 @@ const queryDB = () => {
 function log(str) {
     const logPanel = document.querySelector('#log-panel')
     logPanel.value += '# ' + str + '\n'
+
+    document.querySelector('#log-panel').scrollTop = document.querySelector('#log-panel').scrollHeight
+    document.querySelector('.notification-panel').scrollTop = document.querySelector('.notification-panel').scrollHeight
 }
 
 function List(item) {
-    return `<li> ${item} </li>`
+    return `<div class='DB-row'> ${item} </div>`
 }
 
-function queryDatabase(items) {
+function Message(msg) {
+    return `<div class='notification-message'> <p class='notification-text'> ${msg} </p> </div>`
+}
+
+function updateDatabasePanel(items) {
     const DBpanel = document.querySelector('.DB-query-list')
-    items.forEach(item => {
-        DBpanel.innerHTML += List(item)
+    DBpanel.querySelector('.index').innerHTML = List('#')
+    DBpanel.querySelector('.userid').innerHTML = List('userid')
+    DBpanel.querySelector('.name').innerHTML = List('name')
+    DBpanel.querySelector('.email').innerHTML = List('email')
+    items.forEach((item, index) => {
+        DBpanel.querySelector('.index').innerHTML += List(index)
+        DBpanel.querySelector('.userid').innerHTML += List(item.userid)
+        DBpanel.querySelector('.name').innerHTML += List(item.name)
+        DBpanel.querySelector('.email').innerHTML += List(item.email)
     })
 }
 
-const notPanel = document.querySelector('.notification-panel')
 
 function notify(str) {
-    notPanel.classList.remove('hide')
+    const notPanel = document.querySelector('.notification-panel')
+    notPanel.innerHTML += Message(str)
     log(str)
-    notPanel.innerHTML = `<p class="notification-text"> ${str} </p>`
 }
-
-
 
 const clear = document.querySelector('.btn-clear')
 const load = document.querySelector('.btn-load')
@@ -211,16 +228,14 @@ clear.addEventListener('click', clearDB)
 load.addEventListener('click', loadDB)
 query.addEventListener('click', queryDB)
 
-notPanel.addEventListener('click', () => {
-    notPanel.classList.add('hide')
-})
 
 clearTerminal.addEventListener('click', () => {
     const logPanel = document.querySelector('#log-panel')
     logPanel.value = '#\n'
 })
 
+const customerData = [
+    { userid: '111', name: 'lucas', email: 'cantao162@gmail.com' }
+]
 
-
-
-queryDatabase(['item 1', 'item 2', 'item 3'])
+// updateDatabasePanel(customerData)

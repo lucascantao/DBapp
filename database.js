@@ -233,9 +233,3 @@ clearTerminal.addEventListener('click', () => {
     const logPanel = document.querySelector('#log-panel')
     logPanel.value = '#\n'
 })
-
-const customerData = [
-    { userid: '111', name: 'lucas', email: 'cantao162@gmail.com' }
-]
-
-// updateDatabasePanel(customerData)

@@ -160,6 +160,7 @@ input {
     margin: 24px 0;
     margin-left: 24px;
     overflow: auto;
+    background-color: white;
 
 }
 
@@ -179,4 +180,18 @@ input {
     border-right: 1px solid #777;
     padding: 0 3px;
     /* overflow: auto; */
+}
+
+.alert {
+    background-color: brown;
+    color: white;
+    text-align: center;
+    padding: 12px 0;
+    width: 100%;
+}
+
+.btn.disabled {
+    pointer-events: none;
+    background-color: rgb(187, 110, 110);
+    color: rgb(68, 68, 68)
 }

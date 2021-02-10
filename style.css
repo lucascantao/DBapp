@@ -11,7 +11,7 @@ body {
 
 header {
     background-color: #333;
-    color: white;
+    color: rgb(255, 196, 0);
 
     padding: 20px;
 
@@ -22,9 +22,10 @@ main {
     display:flex;
     height: 400px;
     width: 900px;
-    background-color: #aaa;
+    background-color: #333;
     margin: 100px auto;
     padding: 12px 24px;
+    border-radius: 8px;
 }
 
 input {
@@ -47,10 +48,11 @@ input {
     margin-right: 6px;
     cursor: pointer;
     border: none;
-    border-radius: 3px;
-    box-shadow: 3px 3px #999;
+    border-radius: 5px;
+    box-shadow: 3px 3px #222;
     color: white;
-    background-color: rgb(41, 126, 255);
+    background-color: rgb(255, 196, 0);
+    font-family: 'Roboto Mono', monospace;
     font-size: 16px;
     letter-spacing: 1px;
 }
@@ -58,6 +60,7 @@ input {
 .btn:hover {
     background-color: white;
     color: black;
+    
 }
 
 .control-panel {
